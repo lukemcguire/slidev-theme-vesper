@@ -41,10 +41,11 @@ title: 'Your Presentation Title'   # → VesperHeader deck title (left)
 author: 'Your Name'                 # → VesperHeader right slot
 date: 'MONTH YEAR'                  # → VesperFooter center
 colorSchema: dark                   # dark (default) | light
-highlighter: shiki
-lineNumbers: true
 ---
 ```
+
+The theme sets these defaults automatically — no need to repeat them:
+`highlighter: shiki`, `lineNumbers: true`, `canvasWidth: 960`.
 
 Per-slide overrides:
 
@@ -108,13 +109,35 @@ All requests require a bearer token. Tokens expire after 24 hours.
 - `title`: string (optional — omit for left-border-only titleless variant)
 - `compact`: boolean (reduces body padding)
 
+### `SvgDiagram`
+
+Fetches an SVG file and renders it inline so CSS custom properties
+(`var(--vp-*)`) resolve inside the SVG. Use this instead of `<img>` for
+diagrams that should adapt to dark/light mode.
+
+```vue
+<SvgDiagram src="/assets/my-diagram.svg" />
+```
+
+SVG files should use `var(--vp-base)`, `var(--vp-mauve)`, etc. instead of
+hardcoded hex values. See `assets/fig_1-1.svg` for a reference example.
+
+**Props:** `src` — path to the SVG file (relative to Slidev's public root)
+
 ### `Callout`
 
 Inline advisory notice with left-border accent and tinted background.
 
 ```vue
-<Callout type="warning">**WARNING.** This action cannot be undone.</Callout>
+<Callout type="warning">
+
+**WARNING.** This action cannot be undone.
+
+</Callout>
 ```
+
+> **Note:** Slot content must be surrounded by blank lines for Slidev to
+> process inline markdown (`**bold**`, `_italic_`, etc.).
 
 **Props:**
 - `type`: `'warning'` | `'caution'` | `'note'` | `'important'`
@@ -206,20 +229,9 @@ Additional raw palette vars: `--vp-red`, `--vp-green`, `--vp-yellow`, `--vp-teal
 
 ## Mermaid Configuration
 
-Set Catppuccin Mocha theme variables in your global front matter for consistent diagram rendering:
-
-```yaml
-mermaid:
-  theme: base
-  themeVariables:
-    background: '#1e1e2e'
-    primaryColor: '#313244'
-    primaryTextColor: '#cdd6f4'
-    primaryBorderColor: '#585b70'
-    lineColor: '#cba6f7'
-    mainBkg: '#313244'
-    nodeBorder: '#585b70'
-```
+Catppuccin Mocha theme variables are set automatically via `slidev.defaults`
+in `package.json` — no front matter needed. Diagrams render with the correct
+palette in both dark and light modes without any extra configuration.
 
 ---
 

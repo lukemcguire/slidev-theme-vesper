@@ -23,6 +23,12 @@ This is a **Slidev theme package** (`slidev-theme-vesper`) with no build step of
 - `layouts/*.vue` — resolved by name when a slide front matter specifies `layout: <name>`
 - `components/*.vue` — auto-imported globally into all layouts and slides by name
 - `setup/shiki.ts` — must export a **plain default function** (no imports from `@slidev/types`; the package is not installed locally). Slidev calls `mod.default()` to get the Shiki theme config.
+- `vite.config.ts` — Vite plugin that shims `lz-string` CJS→ESM so Mermaid
+  diagrams work. No imports at top level (vite not installed locally); exports
+  a plain object.
+- `package.json` `slidev.defaults` — provides `canvasWidth: 960`,
+  `lineNumbers: true`, and full Catppuccin Mocha Mermaid theme variables as
+  theme-level defaults so users don't need to repeat them in front matter.
 
 ### Design token system
 
@@ -72,6 +78,34 @@ Corner brackets on Block use `--bracket-color: var(--block-accent)` override so 
 ### CSS corner brackets
 
 Implemented as sibling `<span>` elements (`.vp-bracket-bl`, `.vp-bracket-br`) inside the bracketed container plus `::before`/`::after` pseudo-elements for the top pair. The `vp-bracketed` utility class in `index.css` handles the top corners; bottom corners require explicit `<span class="vp-bracket-bl"></span><span class="vp-bracket-br"></span>` in the template.
+
+### SvgDiagram component
+
+`components/SvgDiagram.vue` fetches an SVG file via `fetch()` and renders it
+inline with `v-html`. This allows SVG elements to inherit document CSS custom
+properties (`var(--vp-*)`) so diagrams adapt automatically to dark/light mode.
+
+Props: `src` (string) — URL path to the SVG file relative to Slidev's root.
+
+SVG assets in `assets/` use `var(--vp-base)`, `var(--vp-mauve)`, etc. instead
+of hardcoded hex. **Exception:** `fig_1-5.svg` uses hardcoded generic colors
+intentionally (it's a "before" comparison showing a plain default theme) and
+should remain as `<img>`, not `<SvgDiagram>`.
+
+### Callout slot markdown
+
+Slidev only processes inline markdown in component slot content when the
+content is surrounded by blank lines (block form). Single-line usage
+`<Callout>**bold**</Callout>` passes raw text — bold will not render. Always
+use block form:
+
+```vue
+<Callout type="warning">
+
+**Bold** renders here.
+
+</Callout>
+```
 
 ### Banner component
 
