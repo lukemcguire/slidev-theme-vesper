@@ -40,7 +40,6 @@ theme: slidev-theme-vesper
 title: 'Your Presentation Title'   # → VesperHeader deck title (left)
 author: 'Your Name'                 # → VesperHeader right slot
 date: 'MONTH YEAR'                  # → VesperFooter center
-colorSchema: dark                   # dark (default) | light
 ---
 ```
 
