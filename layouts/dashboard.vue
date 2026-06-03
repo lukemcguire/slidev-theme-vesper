@@ -10,6 +10,10 @@ defineProps<{
   panel2Label?: string
   panel3Label?: string
   panel4Label?: string
+  caption1?: string
+  caption2?: string
+  caption3?: string
+  caption4?: string
 }>()
 </script>
 
@@ -39,7 +43,7 @@ defineProps<{
             </slot>
           </div>
           <div class="db-panel-footer">
-            <slot name="caption1" />
+            <slot name="caption1">{{ caption1 ?? '' }}</slot>
           </div>
         </div>
 
@@ -54,7 +58,7 @@ defineProps<{
             </slot>
           </div>
           <div class="db-panel-footer">
-            <slot name="caption2" />
+            <slot name="caption2">{{ caption2 ?? '' }}</slot>
           </div>
         </div>
 
@@ -69,7 +73,7 @@ defineProps<{
             </slot>
           </div>
           <div class="db-panel-footer">
-            <slot name="caption3" />
+            <slot name="caption3">{{ caption3 ?? '' }}</slot>
           </div>
         </div>
 
@@ -84,7 +88,7 @@ defineProps<{
             </slot>
           </div>
           <div class="db-panel-footer">
-            <slot name="caption4" />
+            <slot name="caption4">{{ caption4 ?? '' }}</slot>
           </div>
         </div>
       </div>

@@ -33,7 +33,11 @@ defineProps<{
             <slot name="header1">{{ col1Header ?? 'SECTION A' }}</slot>
           </div>
           <div class="thc-col-content">
-            <slot name="col1" />
+            <slot name="left">
+              <slot name="col1">
+                <slot />
+              </slot>
+            </slot>
           </div>
         </div>
 
@@ -45,7 +49,9 @@ defineProps<{
             <slot name="header2">{{ col2Header ?? 'SECTION B' }}</slot>
           </div>
           <div class="thc-col-content">
-            <slot name="col2" />
+            <slot name="center">
+              <slot name="col2" />
+            </slot>
           </div>
         </div>
 
@@ -57,7 +63,9 @@ defineProps<{
             <slot name="header3">{{ col3Header ?? 'SECTION C' }}</slot>
           </div>
           <div class="thc-col-content">
-            <slot name="col3" />
+            <slot name="right">
+              <slot name="col3" />
+            </slot>
           </div>
         </div>
       </div>

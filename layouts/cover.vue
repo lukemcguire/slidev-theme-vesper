@@ -5,6 +5,7 @@ import Banner from '../components/Banner.vue'
 defineProps<{
   date?: string
   bannerText?: string
+  subtitle?: string
 }>()
 </script>
 
@@ -36,8 +37,8 @@ defineProps<{
         <div class="cover-rule-mid"></div>
 
         <!-- Subtitle -->
-        <div v-if="$slots.subtitle || $slots.default" class="cover-subtitle">
-          <slot name="subtitle" />
+        <div v-if="$slots.subtitle || subtitle" class="cover-subtitle">
+          <slot name="subtitle">{{ subtitle }}</slot>
         </div>
 
         <!-- Date -->

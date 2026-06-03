@@ -4,6 +4,7 @@ import VesperFooter from '../components/VesperFooter.vue'
 
 defineProps<{
   sectionNumber?: string
+  descriptor?: string
 }>()
 </script>
 
@@ -18,8 +19,8 @@ defineProps<{
         <slot />
       </div>
 
-      <div class="section-descriptor">
-        <slot name="descriptor" />
+      <div v-if="$slots.descriptor || descriptor" class="section-descriptor">
+        <slot name="descriptor">{{ descriptor }}</slot>
       </div>
 
       <div class="section-bottom-rule"></div>

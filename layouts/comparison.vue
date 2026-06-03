@@ -37,7 +37,9 @@ defineProps<{
           <span class="cmp-col-label">{{ leftHeader ?? 'OPTION ALPHA' }}</span>
         </div>
         <div class="cmp-col-content">
-          <slot name="left" />
+          <slot name="left">
+            <slot />
+          </slot>
         </div>
       </div>
 

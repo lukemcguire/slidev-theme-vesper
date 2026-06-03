@@ -2,10 +2,13 @@
 <script setup lang="ts">
 import VesperHeader from '../components/VesperHeader.vue'
 import VesperFooter from '../components/VesperFooter.vue'
+import VesperToc from '../components/VesperToc.vue'
 
 defineProps<{
   title?: string
   sectionNumber?: string
+  columns?: string | number
+  showTitle?: boolean
 }>()
 </script>
 
@@ -20,7 +23,7 @@ defineProps<{
     <div class="toc-body">
       <div class="toc-title-bar">
         <div class="toc-rule"></div>
-        <h2 class="toc-title">{{ title ?? 'TABLE OF CONTENTS' }}</h2>
+        <h2 v-if="showTitle" class="toc-title">{{ title ?? 'TABLE OF CONTENTS' }}</h2>
         <div class="toc-col-headers">
           <span class="toc-col-section">SECTION</span>
           <span class="toc-col-title"></span>
@@ -31,19 +34,7 @@ defineProps<{
 
       <div class="toc-entries">
         <slot>
-          <!-- Example entries — override with your own in the slide -->
-          <div class="toc-entry">
-            <span class="toc-entry-num">1-1</span>
-            <span class="toc-entry-title">Introduction to the Briefing Room</span>
-            <span class="toc-leaders"></span>
-            <span class="toc-entry-page">3</span>
-          </div>
-          <div class="toc-entry">
-            <span class="toc-entry-num">1-2</span>
-            <span class="toc-entry-title">Equipment and Materiel</span>
-            <span class="toc-leaders"></span>
-            <span class="toc-entry-page">7</span>
-          </div>
+          <VesperToc :columns="columns ?? 2" />
         </slot>
       </div>
     </div>

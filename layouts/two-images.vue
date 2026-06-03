@@ -3,6 +3,7 @@
 import VesperHeader from '../components/VesperHeader.vue'
 import VesperFooter from '../components/VesperFooter.vue'
 import FigureCaption from '../components/FigureCaption.vue'
+import VesperImage from '../components/VesperImage.vue'
 
 defineProps<{
   title?: string
@@ -11,6 +12,12 @@ defineProps<{
   fig1Label?: string
   fig2Number?: string | number
   fig2Label?: string
+  image1?: string
+  image1Mode?: 'auto' | 'img' | 'svg'
+  image1Class?: string
+  image2?: string
+  image2Mode?: 'auto' | 'img' | 'svg'
+  image2Class?: string
 }>()
 </script>
 
@@ -37,7 +44,13 @@ defineProps<{
         <div class="ti-image-frame vp-bracketed">
           <span class="vp-bracket-bl"></span>
           <span class="vp-bracket-br"></span>
-          <slot name="image1">
+          <VesperImage
+            v-if="image1"
+            :src="image1"
+            :mode="image1Mode ?? 'auto'"
+            :image-class="image1Class"
+          />
+          <slot v-else name="image1">
             <div class="ti-placeholder">
               <span class="vp-label" style="color: var(--color-rule-light);">IMAGE A</span>
             </div>
@@ -52,7 +65,13 @@ defineProps<{
         <div class="ti-image-frame vp-bracketed">
           <span class="vp-bracket-bl"></span>
           <span class="vp-bracket-br"></span>
-          <slot name="image2">
+          <VesperImage
+            v-if="image2"
+            :src="image2"
+            :mode="image2Mode ?? 'auto'"
+            :image-class="image2Class"
+          />
+          <slot v-else name="image2">
             <div class="ti-placeholder">
               <span class="vp-label" style="color: var(--color-rule-light);">IMAGE B</span>
             </div>
@@ -132,7 +151,8 @@ defineProps<{
   min-height: 0;
 }
 
-.ti-image-frame :deep(img) {
+.ti-image-frame :deep(img),
+.ti-image-frame :deep(.svg-diagram) {
   width: 100%;
   height: 100%;
   object-fit: contain;

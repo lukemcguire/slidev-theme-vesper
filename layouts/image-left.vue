@@ -3,6 +3,7 @@
 import VesperHeader from '../components/VesperHeader.vue'
 import VesperFooter from '../components/VesperFooter.vue'
 import FigureCaption from '../components/FigureCaption.vue'
+import VesperImage from '../components/VesperImage.vue'
 
 defineProps<{
   title?: string
@@ -10,7 +11,9 @@ defineProps<{
   figNumber?: string | number
   figLabel?: string
   image?: string
+  imageMode?: 'auto' | 'img' | 'svg'
   imageClass?: string
+  caption?: string
 }>()
 </script>
 
@@ -28,7 +31,12 @@ defineProps<{
         <div class="il-image-frame vp-bracketed">
           <span class="vp-bracket-bl"></span>
           <span class="vp-bracket-br"></span>
-          <img v-if="image" :src="image" :class="imageClass" alt="" />
+          <VesperImage
+            v-if="image"
+            :src="image"
+            :mode="imageMode ?? 'auto'"
+            :image-class="imageClass"
+          />
           <slot v-else name="image">
             <div class="il-image-placeholder">
               <span class="il-placeholder-label vp-label">IMAGE</span>
@@ -36,8 +44,8 @@ defineProps<{
           </slot>
         </div>
         <FigureCaption :number="figNumber ?? ''" :label="figLabel ?? ''" />
-        <div class="il-caption">
-          <slot name="caption" />
+        <div v-if="$slots.caption || caption" class="il-caption">
+          <slot name="caption">{{ caption }}</slot>
         </div>
       </div>
 
@@ -88,7 +96,8 @@ defineProps<{
   min-height: 0;
 }
 
-.il-image-frame :deep(img) {
+.il-image-frame :deep(img),
+.il-image-frame :deep(.svg-diagram) {
   width: 100%;
   height: 100%;
   object-fit: contain;

@@ -1,10 +1,15 @@
 <!-- Layout: image-full — Full-bleed background image with gradient overlay and text block bottom-left -->
 <script setup lang="ts">
 import Banner from '../components/Banner.vue'
+import VesperImage from '../components/VesperImage.vue'
 
 defineProps<{
   sectionNumber?: string
   bannerText?: string
+  image?: string
+  imageMode?: 'auto' | 'img' | 'svg'
+  imageClass?: string
+  subtitle?: string
 }>()
 </script>
 
@@ -12,7 +17,13 @@ defineProps<{
   <div class="slidev-layout layout-image-full">
     <!-- Background image slot -->
     <div class="if-bg">
-      <slot name="image">
+      <VesperImage
+        v-if="image"
+        :src="image"
+        :mode="imageMode ?? 'auto'"
+        :image-class="imageClass"
+      />
+      <slot v-else name="image">
         <div class="if-bg-placeholder"></div>
       </slot>
     </div>
@@ -29,8 +40,8 @@ defineProps<{
       <div class="if-title">
         <slot />
       </div>
-      <div class="if-subtitle">
-        <slot name="subtitle" />
+      <div v-if="$slots.subtitle || subtitle" class="if-subtitle">
+        <slot name="subtitle">{{ subtitle }}</slot>
       </div>
     </div>
   </div>
@@ -49,7 +60,8 @@ defineProps<{
   z-index: 0;
 }
 
-.if-bg :deep(img) {
+.if-bg :deep(img),
+.if-bg :deep(.svg-diagram) {
   width: 100%;
   height: 100%;
   object-fit: cover;

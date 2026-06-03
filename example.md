@@ -6,111 +6,40 @@ author: 'Luke McGuire'
 layout: cover
 date: 'MAY 2026'
 katex: true
+subtitle: 'Luke McGuire · May 2026'
+hideInToc: true
 ---
-
 # Vesper
 ## A Technical Slidev Theme
 
-<template v-slot:subtitle>
 
-Luke McGuire · May 2026
-
-</template>
 
 <!--
 Welcome to Vesper — a Slidev theme built for technical presentations. The design draws from structured documentation traditions: ruled frames, corner brackets, systematic typography, and a layout system that scales from a single slide to a full deck.
 
-Vesper ships with 24 layouts, 6 components, and a dual-mode palette built on Catppuccin Mocha (dark) and Catppuccin Latte (light). Let's walk through what it can do.
+Vesper ships with 26 layouts, 7 components, and a dual-mode palette built on Catppuccin Mocha (dark) and Catppuccin Latte (light). Let's walk through what it can do.
 -->
 
 ---
 layout: table-of-contents
 sectionNumber: TOC
 title: TABLE OF CONTENTS
+hideInToc: true
+columns: 2
 ---
-
-<div class="toc-entry toc-entry--chapter">
-  <span class="toc-entry-num">CH. 1</span>
-  <span class="toc-entry-title">Design System</span>
-  <span class="toc-leaders"></span>
-  <span class="toc-entry-page">3</span>
-</div>
-<div class="toc-entry">
-  <span class="toc-entry-num">1-1</span>
-  <span class="toc-entry-title">Typography &amp; Color</span>
-  <span class="toc-leaders"></span>
-  <span class="toc-entry-page">4</span>
-</div>
-<div class="toc-entry">
-  <span class="toc-entry-num">1-2</span>
-  <span class="toc-entry-title">Layout Anatomy</span>
-  <span class="toc-leaders"></span>
-  <span class="toc-entry-page">5</span>
-</div>
-<div class="toc-entry toc-entry--chapter">
-  <span class="toc-entry-num">CH. 2</span>
-  <span class="toc-entry-title">Media Layouts</span>
-  <span class="toc-leaders"></span>
-  <span class="toc-entry-page">7</span>
-</div>
-<div class="toc-entry">
-  <span class="toc-entry-num">2-1</span>
-  <span class="toc-entry-title">Image Layouts (6 variants)</span>
-  <span class="toc-leaders"></span>
-  <span class="toc-entry-page">7</span>
-</div>
-<div class="toc-entry toc-entry--chapter">
-  <span class="toc-entry-num">CH. 3</span>
-  <span class="toc-entry-title">Content Layouts</span>
-  <span class="toc-leaders"></span>
-  <span class="toc-entry-page">13</span>
-</div>
-<div class="toc-entry">
-  <span class="toc-entry-num">3-1</span>
-  <span class="toc-entry-title">Columns, Statement, Quote</span>
-  <span class="toc-leaders"></span>
-  <span class="toc-entry-page">13</span>
-</div>
-<div class="toc-entry">
-  <span class="toc-entry-num">3-2</span>
-  <span class="toc-entry-title">Callout &amp; Comparison</span>
-  <span class="toc-leaders"></span>
-  <span class="toc-entry-page">17</span>
-</div>
-<div class="toc-entry toc-entry--chapter">
-  <span class="toc-entry-num">CH. 4</span>
-  <span class="toc-entry-title">Code &amp; Components</span>
-  <span class="toc-leaders"></span>
-  <span class="toc-entry-page">20</span>
-</div>
-<div class="toc-entry">
-  <span class="toc-entry-num">4-1</span>
-  <span class="toc-entry-title">Code Layouts &amp; Block Component</span>
-  <span class="toc-leaders"></span>
-  <span class="toc-entry-page">20</span>
-</div>
-<div class="toc-entry toc-entry--chapter">
-  <span class="toc-entry-num">CH. 5</span>
-  <span class="toc-entry-title">Charts, Data &amp; Timeline</span>
-  <span class="toc-leaders"></span>
-  <span class="toc-entry-page">27</span>
-</div>
-
 <!--
-This ToC slide demonstrates the table-of-contents layout. Chapter entries use the `toc-entry--chapter` modifier for a visually elevated row; subsection entries indent automatically under them. Add or remove rows by editing the HTML directly in the markdown — each entry is a small block with four spans.
+The table-of-contents layout is generated automatically from slide titles. Use `hideInToc: true` to exclude utility slides, and `level:` frontmatter if you need explicit hierarchy.
 -->
 
 ---
 layout: section
 sectionNumber: '1'
+descriptor: 'Typography, color tokens, and the CSS custom property system that drives every layout in the theme.'
 ---
-
 # Chapter 1
 ## Design System
 
-<template v-slot:descriptor>
-Typography, color tokens, and the CSS custom property system that drives every layout in the theme.
-</template>
+
 
 <!--
 The section divider layout creates a structural pause between chapters. Bold display type, a short descriptor, and a thick accent rule — intentionally minimal so the audience registers a transition without reading anything.
@@ -121,7 +50,6 @@ layout: default
 title: 1-1. TYPOGRAPHY & COLOR
 sectionNumber: 1-1
 ---
-
 ## 1-1. Typography & Color
 
 Vesper uses **IBM Plex Sans** for all non-monospaced text and **Fira Code** for code, labels, and headers. Both are available from Google Fonts.
@@ -147,7 +75,6 @@ layout: default
 title: 1-2. LAYOUT ANATOMY
 sectionNumber: 1-2
 ---
-
 ## 1-2. Layout Anatomy
 
 Every layout follows the same three-zone structure:
@@ -177,9 +104,6 @@ layout: default
 title: 1-3. DESIGN TOKENS & SVG DIAGRAMS
 sectionNumber: 1-3
 ---
-
-## 1-3. Design Tokens & SVG Diagrams
-
 All palette values live as **`--vp-*` CSS custom properties** (Catppuccin Latte in light mode, Mocha in dark). Never hardcode hex values.
 
 | Token | Role | Token | Role |
@@ -191,19 +115,17 @@ All palette values live as **`--vp-*` CSS custom properties** (Catppuccin Latte 
 | `--vp-mantle` | Deep background | `--vp-teal` · `--vp-green` | Success / positive |
 | `--vp-overlay0` | Subtle stroke | `--vp-red` · `--vp-yellow` | Error / warning |
 
-**SVG diagrams** — use `var(--vp-*)` in `fill`/`stroke` attributes and embed with `<SvgDiagram src="..." />`. This inlines the SVG so CSS vars resolve and it responds to dark/light mode. Plain `<img>` tags cannot inherit CSS variables.
+**SVG diagrams** — use `var(--vp-*)` in `fill`/`stroke` attributes and set `image: ./path/to/diagram.svg` in image layout frontmatter. SVGs render inline by default so CSS vars resolve and they respond to dark/light mode. Use `imageMode: img` when an SVG should render as a plain image.
 
 ---
 layout: section
 sectionNumber: '2'
+descriptor: 'Six image layout variants: right, left, full-bleed, top, bottom, and two-up.'
 ---
-
 # Chapter 2
 ## Media Layouts
 
-<template v-slot:descriptor>
-Six image layout variants: right, left, full-bleed, top, bottom, and two-up.
-</template>
+
 
 ---
 layout: image-right
@@ -211,8 +133,8 @@ title: 2-1. IMAGE RIGHT
 sectionNumber: 2-1
 figNumber: 2-1
 figLabel: COMPONENT ARCHITECTURE — DEPENDENCY GRAPH
+image: './assets/fig_1-1.svg'
 ---
-
 ## 2-1. Image Right
 
 The **image-right** layout places a text column on the left and an image panel on the right. The figure caption (`figNumber` + `figLabel` front matter) renders automatically below the image.
@@ -224,9 +146,7 @@ Use this layout when the text is the primary content and the image is supporting
 - Screenshots of UI with annotated walkthrough
 - Reference photos with descriptive text
 
-<template v-slot:image>
-<SvgDiagram src="./assets/fig_1-1.svg" />
-</template>
+
 
 <!--
 The image panel fills the right half of the content area; the figure caption renders in standardized label style below it. Swap to image-left by changing a single word in the front matter.
@@ -238,8 +158,8 @@ title: 2-2. IMAGE LEFT
 sectionNumber: 2-2
 figNumber: 2-2
 figLabel: DEPLOYMENT PIPELINE — STAGE DIAGRAM
+image: './assets/fig_1-2.svg'
 ---
-
 ## 2-2. Image Left
 
 The **image-left** layout mirrors image-right. Choose between the two based on the visual composition of your image — or to vary the rhythm of a deck that uses many image slides in sequence.
@@ -250,9 +170,7 @@ Both variants share the same front matter props:
 
 **Tip.** Leave `figNumber` and `figLabel` out of the front matter entirely to suppress the caption. The image fills the panel without any label below it.
 
-<template v-slot:image>
-<SvgDiagram src="./assets/fig_1-2.svg" />
-</template>
+
 
 <!--
 The mirror layout. Change `image-left` to `image-right` in front matter to flip — everything else stays the same.
@@ -260,18 +178,17 @@ The mirror layout. Change `image-left` to `image-right` in front matter to flip 
 
 ---
 layout: image-full
+title: 2-3. IMAGE FULL
+sectionNumber: 2-3
 bannerText: VESPER THEME — LAYOUT SHOWCASE
+image: './assets/fig_1-full.svg'
+subtitle: 'Every element earns its place. Nothing decorates; everything communicates.'
 ---
 
-<template v-slot:image>
-<SvgDiagram src="./assets/fig_1-full.svg" />
-</template>
 
 # Structure Without Noise
 
-<template v-slot:subtitle>
-Every element earns its place. Nothing decorates; everything communicates.
-</template>
+
 
 <!--
 The image-full layout strips away all structural chrome — no header, footer, or section numbers. A gradient ensures the text block at the bottom is always legible regardless of what the image contains. Use it as punctuation: a visual transition between major sections, or a dramatic context-setting moment before a dense content run.
@@ -285,8 +202,8 @@ title: 2-4. IMAGE TOP
 sectionNumber: 2-4
 figNumber: 2-3
 figLabel: SYSTEM MONITORING DASHBOARD — LIVE VIEW
+image: './assets/fig_1-3.svg'
 ---
-
 The **image-top** layout places a photograph or diagram in a horizontal band across the upper portion of the slide, with the content area below. The figure caption sits between the image and the text.
 
 This layout works well when the visual **establishes the subject** and the text provides the analysis. The natural reading direction moves image → caption → content.
@@ -295,9 +212,7 @@ This layout works well when the visual **establishes the subject** and the text 
 - Effective for before/after comparisons when one image suffices
 - The image band height is fixed; resize images to fill the band proportionally
 
-<template v-slot:image>
-<SvgDiagram src="./assets/fig_1-3.svg" />
-</template>
+
 
 <!--
 Image-top is the natural layout when the visual is the premise and the text is the conclusion. Eye tracking moves top-to-bottom: see it, understand it, read the analysis.
@@ -306,11 +221,12 @@ Image-top is the natural layout when the visual is the premise and the text is t
 ---
 layout: image-bottom
 title: 2-5. IMAGE BOTTOM
+hideInToc: true
 sectionNumber: 2-5
 figNumber: 2-4
 figLabel: DATA PIPELINE — END-TO-END FLOW
+image: './assets/fig_1-4.svg'
 ---
-
 ## 2-5. Image Bottom
 
 The **image-bottom** layout inverts image-top, placing the content area above and the image below. Use it when the argument needs to come first and the image is the visual conclusion — the evidence that lands at the end of the slide.
@@ -319,9 +235,7 @@ The **image-bottom** layout inverts image-top, placing the content area above an
 - Process diagrams that confirm a stated conclusion
 - Results screenshots following a hypothesis
 
-<template v-slot:image>
-<SvgDiagram src="./assets/fig_1-4.svg" />
-</template>
+
 
 <!--
 Where image-top says "here's the context, now the explanation" — image-bottom says "here's the argument, now the proof." The layout mirrors the rhetorical move.
@@ -330,24 +244,23 @@ Where image-top says "here's the context, now the explanation" — image-bottom 
 ---
 layout: two-images
 title: 2-6. TWO IMAGES
+hideInToc: true
 sectionNumber: 2-6
 fig1Number: 2-5
 fig1Label: BEFORE — DEFAULT THEME
 fig2Number: 2-6
 fig2Label: AFTER — VESPER TREATMENT
+image1: './assets/fig_1-5.svg'
+image1Mode: 'img'
+image2: './assets/fig_1-6.svg'
 ---
-
 The **two-images** layout places two image panels side by side, each with an independent figure caption. A shared text area above both panels frames the comparison.
 
 Natural uses: before/after comparisons, paired screenshots, or two reference diagrams that need to be seen together simultaneously.
 
-<template v-slot:image1>
-<img src="./assets/fig_1-5.svg" alt="Before — default theme" />
-</template>
 
-<template v-slot:image2>
-<SvgDiagram src="./assets/fig_1-6.svg" />
-</template>
+
+
 
 <!--
 Both figure captions are independently labeled, so each is individually citable in body text. The layout renders them at equal width with a consistent gap between them.
@@ -356,20 +269,17 @@ Both figure captions are independently labeled, so each is individually citable 
 ---
 layout: section
 sectionNumber: '3'
+descriptor: 'Columns, statement, quote, callout boxes, and side-by-side comparison panels.'
 ---
-
 # Chapter 3
 ## Content Layouts
 
-<template v-slot:descriptor>
-Columns, statement, quote, callout boxes, and side-by-side comparison panels.
-</template>
+
 
 ---
 layout: statement
-sectionNumber: 3-0
+hideInToc: true
 ---
-
 "Good design is as little design as possible."
 
 <!--
@@ -381,7 +291,6 @@ layout: default
 title: 3-1. SLIDE DISCIPLINE
 sectionNumber: 3-1
 ---
-
 ## 3-1. Slide Discipline
 
 The **one-idea principle**: each slide communicates exactly one primary idea. Supporting points clarify or expand it — they don't introduce new ones.
@@ -404,8 +313,7 @@ layout: two-column
 title: 3-2. TWO COLUMNS
 sectionNumber: 3-2
 ---
-
-<template v-slot:left>
+::left::
 
 ## SYNCHRONOUS
 
@@ -418,9 +326,8 @@ sectionNumber: 3-2
 
 **Best for:** CRUD APIs, user-facing reads, transactional writes
 
-</template>
 
-<template v-slot:right>
+::right::
 
 ## ASYNCHRONOUS
 
@@ -433,7 +340,6 @@ sectionNumber: 3-2
 
 **Best for:** Notifications, background jobs, cross-domain events
 
-</template>
 
 <!--
 The two-column layout splits the content area into two equal columns with a dividing rule between them. Each column accepts any Markdown: bullets, prose, headings, tables. Use it for genuinely parallel content where seeing both columns simultaneously is the point. For deliberate point-counterpoint with visual emphasis, the comparison layout is the better fit.
@@ -447,8 +353,7 @@ col1Header: INGESTION
 col2Header: PROCESSING
 col3Header: DELIVERY
 ---
-
-<template v-slot:col1>
+::left::
 
 - Kafka topic per source
 - Schema registry validation
@@ -456,15 +361,14 @@ col3Header: DELIVERY
 - Backpressure at the connector
 - Retention: 7 days
 
-<Block type="info" title="DIGESTION" :compact="true">
+:::block{type="info" title="DIGESTION" compact=true}
 
 Rather "Kafka-esque"
 
-</Block>
+:::
 
-</template>
 
-<template v-slot:col2>
+::center::
 
 - Flink streaming job
 - Windowed aggregations (5 min)
@@ -472,15 +376,14 @@ Rather "Kafka-esque"
 - State store: RocksDB
 - Checkpoint interval: 60s
 
-<Block type="success" title="PROGRESSING" :compact="true">
+:::block{type="success" title="PROGRESSING" compact=true}
 
 Always moving forward
 
-</Block>
+:::
 
-</template>
 
-<template v-slot:col3>
+::right::
 
 - Write to ClickHouse cluster
 - Real-time materialized views
@@ -488,13 +391,12 @@ Always moving forward
 - Alerting via PagerDuty
 - SLA: p99 < 2s end-to-end
 
-<Block type="warning" title="THE LIVERY" :compact="true">
+:::block{type="warning" title="THE LIVERY" compact=true}
 
 Wear it with pride
 
-</Block>
+:::
 
-</template>
 
 <!--
 Three columns is about the practical limit for this aspect ratio. Past that, line lengths get too short to read comfortably. Column headers are set in front matter; they render in a smaller monospace style to signal they're structural labels rather than content headings.
@@ -505,9 +407,7 @@ layout: quote
 attribution: Donald Knuth
 rank: Professor Emeritus of The Art of Computer Programming
 unit: Stanford University
-sectionNumber: 3-4
 ---
-
 "Programs are meant to be read by humans and only incidentally for computers to execute."
 
 <!--
@@ -521,7 +421,6 @@ sectionNumber: 3-5
 calloutType: warning
 calloutTitle: WARNING — DATA LOSS RISK
 ---
-
 ## 3-5. Callout Boxes
 
 The callout layout adds a prominent alert box to the lower portion of the slide. Four severity levels with standardized visual treatment:
@@ -531,11 +430,10 @@ The callout layout adds a prominent alert box to the lower portion of the slide.
 - **Note** (blue) — supplementary information worth calling out explicitly
 - **Important** (mauve) — deserves attention but doesn't rise to warning level
 
-<template v-slot:callout>
+::callout::
 
 **Running `db:migrate:reset` in production drops all data.** This command is intended for development environments only. Verify your `DATABASE_URL` environment variable before running any destructive migration command. There is no undo — use `db:rollback` instead.
 
-</template>
 
 <!--
 The callout box color treatment makes severity readable at a glance before the label is even read. The Callout component (coming up in the code chapter) lets you place any of these inline within regular slide content rather than locked to the bottom of the callout layout.
@@ -544,14 +442,14 @@ The callout box color treatment makes severity readable at a glance before the l
 ---
 layout: comparison
 title: 3-6. COMPARISON LAYOUT
+hideInToc: true
 sectionNumber: 3-6
 leftHeader: RELATIONAL — PostgreSQL
 rightHeader: DOCUMENT — MongoDB
 leftAccent: blue
 rightAccent: teal
 ---
-
-<template v-slot:left>
+::left::
 
 **Strengths:**
 - Strong consistency guarantees (ACID)
@@ -564,9 +462,8 @@ rightAccent: teal
 - Schema migrations require planning
 - Horizontal scaling adds operational overhead
 
-</template>
 
-<template v-slot:right>
+::right::
 
 **Strengths:**
 - Flexible schema evolution
@@ -579,7 +476,6 @@ rightAccent: teal
 - No multi-document transactions (pre-4.0)
 - Joins require application-level logic
 
-</template>
 
 <!--
 The comparison layout creates two labeled panels for deliberate point-counterpoint content. Each panel has its own header and accent color applied to its top border and label area — the color signals the relationship between the two options before a word is read. Accent options: red, blue, teal.
@@ -588,14 +484,12 @@ The comparison layout creates two labeled panels for deliberate point-counterpoi
 ---
 layout: section
 sectionNumber: '4'
+descriptor: 'Code display layouts, Block, Callout, Columns, and CodeBlock components.'
 ---
-
 # Chapter 4
 ## Code & Components
 
-<template v-slot:descriptor>
-Code display layouts, the Block component, the Callout component, and the CodeBlock component.
-</template>
+
 
 ---
 layout: code-full
@@ -603,8 +497,8 @@ title: 4-1. CODE FULL
 sectionNumber: 4-1
 codeTitle: STREAM PROCESSOR
 codeLang: python
+caption: 'SOURCE: stream_processor.py — 60-second tumbling window'
 ---
-
 ```python {1-5|6-14|15-22}
 from dataclasses import dataclass
 from typing import AsyncIterator
@@ -631,9 +525,7 @@ async def process_stream(
             await sink.put(event)
 ```
 
-<template v-slot:caption>
-SOURCE: stream_processor.py — 60-second tumbling window
-</template>
+
 
 <!--
 The code-full layout fills the entire content area with a single code panel. A prominent title bar shows the filename and language badge. Click-through highlighting uses Slidev's standard `{1-5|6-14|15-22}` syntax. The footer caption slot renders a source annotation at the bottom of the panel.
@@ -646,7 +538,6 @@ sectionNumber: 4-2
 codeTitle: CONFIG LOADER
 codeLang: typescript
 ---
-
 ## 4-2. Code Right
 
 The **code-right** layout places explanatory prose on the left and a code panel on the right — the same split as the default layout, but with a fully-styled code panel replacing the right column.
@@ -689,28 +580,27 @@ layout: default
 title: 4-3. BLOCK COMPONENT
 sectionNumber: 4-3
 ---
-
 ## 4-3. Block Component
 
 The `Block` component creates titled content panels with a solid accent header bar and corner brackets. Six type variants map to Catppuccin semantic colors:
 
-<Block type="info" title="INFO — API AUTHENTICATION">
+:::block{type="info" title="INFO — API AUTHENTICATION"}
 
 All requests to the `/api/v2/` endpoint require a bearer token in the `Authorization` header. Tokens expire after **24 hours** and must be refreshed via `POST /auth/refresh`. Rate limit: 1000 req/min per token.
 
-</Block>
+:::
 
-<Block type="warning" title="WARNING — BREAKING CHANGE">
+:::block{type="warning" title="WARNING — BREAKING CHANGE"}
 
 The `user.permissions` field has changed from `string[]` to `Permission[]` in v3.0. Clients using the v2 response shape will receive a validation error. See the migration guide at `/docs/v3-migration`.
 
-</Block>
+:::
 
-<Block type="success" title="SUCCESS — DEPLOYMENT VERIFIED">
+:::block{type="success" title="SUCCESS — DEPLOYMENT VERIFIED"}
 
 All 12 health checks passed. Zero-downtime deployment complete. Rollback window: 30 minutes. Monitor at `grafana.internal/d/api-latency`.
 
-</Block>
+:::
 
 <!--
 The Block component is the inline version of the callout layout — it can appear anywhere on a slide, not just at the bottom. Use Block for structured callouts within regular content flow. The six types are: default (mauve), info (blue), success (green), warning (yellow), danger (red), example (teal).
@@ -718,19 +608,34 @@ The Block component is the inline version of the callout layout — it can appea
 
 ---
 layout: default
-title: 4-4. BLOCK VARIANTS (1/2)
+title: 4-4. BLOCK VARIANTS 
 sectionNumber: 4-4
 ---
-
 ## 4-4. Block Variants — Titled Types
 
-<Block type="default" title="DEFAULT">General-purpose note in the theme accent color (Mauve). Use for observations, cross-references, or supplementary context.</Block>
+:::block{type="default" title="DEFAULT"}
 
-<Block type="info" title="INFO">Prerequisites, background reading, or contextual explanation. Blue accent.</Block>
+General-purpose note in the theme accent color (Mauve). Use for observations, cross-references, or supplementary context.
 
-<Block type="success" title="SUCCESS">Confirmation, passing criteria, or positive outcome. Green accent.</Block>
+:::
 
-<Block type="warning" title="WARNING">Degraded state, caveat, or important constraint. Yellow accent.</Block>
+:::block{type="info" title="INFO"}
+
+Prerequisites, background reading, or contextual explanation. Blue accent.
+
+:::
+
+:::block{type="success" title="SUCCESS"}
+
+Confirmation, passing criteria, or positive outcome. Green accent.
+
+:::
+
+:::block{type="warning" title="WARNING"}
+
+Degraded state, caveat, or important constraint. Yellow accent.
+
+:::
 
 <!--
 All six variants use the same component; only the `type` prop changes. The corner brackets on Block use the block's accent color, not the global bracket color.
@@ -738,27 +643,39 @@ All six variants use the same component; only the `type` prop changes. The corne
 
 ---
 layout: default
-title: 4-4. BLOCK VARIANTS (2/2)
+title: 4-4. BLOCK VARIANTS 
+hideInToc: true
 sectionNumber: 4-4
 ---
-
 ## 4-4. Block Variants — Alert Types + Modifiers
 
-<Block type="danger" title="DANGER">Irreversible action or hard failure. Use for data loss, secret rotation, production drops. Red accent.</Block>
+:::block{type="danger" title="DANGER"}
 
-<Block type="example" title="EXAMPLE">Usage demonstration or runnable snippet. Teal accent.</Block>
+Irreversible action or hard failure. Use for data loss, secret rotation, production drops. Red accent.
+
+:::
+
+:::block{type="example" title="EXAMPLE"}
+
+Usage demonstration or runnable snippet. Teal accent.
+
+:::
 
 **Titleless** — omit `title` for a left-accent border with no header bar:
 
-<Block type="info">A titleless Block renders with a left accent border only — useful for inline asides without the visual weight of a full header bar.</Block>
+:::block{type="info"}
+
+A titleless Block renders with a left accent border only — useful for inline asides without the visual weight of a full header bar.
+
+:::
 
 **Compact** —
 
-<Block type="example" title="EXAMPLE" compact="true">
+:::block{type="example" title="EXAMPLE" compact=true}
 
 Add `:compact="true"` to reduce body padding for dense contexts.
 
-</Block>
+:::
 
 <!--
 The titleless variant is useful for advisory inline content that doesn't need the visual weight of the full header bar.
@@ -767,30 +684,30 @@ The titleless variant is useful for advisory inline content that doesn't need th
 ---
 layout: default
 title: 4-5. CALLOUT COMPONENT
+hideInToc: true
 sectionNumber: 4-5
 ---
-
 ## 4-5. Callout Component
 
 The `Callout` component is a different tool from `Block` — it's for inline alert notices in the body of a regular slide:
 
-<Callout type="note">
+:::callout{type="note"}
 
 **NOTE.** The `Callout` component uses a left border accent + tinted background, while `Block` uses a solid header bar. Use Callout for supplementary advisory notes inline in content; use Block for structured titled panels.
 
-</Callout>
+:::
 
-<Callout type="caution">
+:::callout{type="caution"}
 
 **CAUTION.** Do not use `position: fixed` inside Slidev slide content — the slide container applies `transform: scale()` which creates a new stacking context and breaks fixed positioning.
 
-</Callout>
+:::
 
-<Callout type="important">
+:::callout{type="important"}
 
 **IMPORTANT.** The `setup/shiki.ts` file must export a bare function with no imports from `@slidev/types` or `@slidev/client`. Those packages are not installed in the theme directory. Slidev calls the export directly as `mod.default()`.
 
-</Callout>
+:::
 
 <!--
 Both Block and Callout exist because they serve different roles. Callout is advisory inline content; Block is a structured information panel with a strong header. Using both makes the visual hierarchy richer.
@@ -798,11 +715,49 @@ Both Block and Callout exist because they serve different roles. Callout is advi
 
 ---
 layout: default
-title: 4-6. CODEBLOCK COMPONENT
+title: 4-6. COLUMNS COMPONENT
+hideInToc: true
 sectionNumber: 4-6
 ---
+## 4-6. Columns Component
 
-## 4-6. CodeBlock Component
+Use `:::columns` for an inline two- or three-column region inside any regular content slide. Separate columns with a standalone `+++` line.
+
+:::columns
+## LEFT
+
+- Full Markdown support
+- Nested Vesper components
+- Equal-width columns
+
+:::block{type="info" title="NESTED BLOCK" compact=true}
+
+Works inside a column.
+
+:::
+
++++
+
+## RIGHT
+
+:::callout{type="note"}
+
+Use layout slot sugar for whole-slide columns; use `:::columns` for inline regions.
+
+:::
+:::
+
+<!--
+The Columns component is intentionally minimal: two or three equal-width columns inferred from the number of separators. The `+++` separator is only recognized inside `:::columns`, and code fences are ignored so examples remain safe.
+-->
+
+---
+layout: default
+title: 4-7. CODEBLOCK COMPONENT
+hideInToc: true
+sectionNumber: 4-7
+---
+## 4-7. CodeBlock Component
 
 The `CodeBlock` component embeds a fully-styled code panel **inline** on any layout — border, header bar, corner brackets, and caption — without needing `code-right` or `code-full`.
 
@@ -827,14 +782,12 @@ The CodeBlock component is the standalone version of the code panel — same sty
 ---
 layout: section
 sectionNumber: '5'
+descriptor: 'Mermaid diagram layouts, a multi-panel dashboard, and a chronological timeline.'
 ---
-
 # Chapter 5
 ## Charts, Data & Timeline
 
-<template v-slot:descriptor>
-Mermaid diagram layouts, a multi-panel dashboard, and a chronological timeline.
-</template>
+
 
 ---
 layout: chart-full
@@ -842,7 +795,6 @@ title: 5-1. CHART FULL — SYSTEM ARCHITECTURE
 sectionNumber: 5-1
 codeTitle: SERVICE DEPENDENCY MAP
 ---
-
 ```mermaid
 graph LR
   Client["Browser / Mobile"] --> Gateway["API Gateway\n(Kong)"]
@@ -866,7 +818,6 @@ layout: chart-right
 title: 5-2. CHART RIGHT — COMPONENT BREAKDOWN
 sectionNumber: 5-2
 ---
-
 ## 5-2. Chart Right
 
 The **chart-right** layout places explanatory text on the left and a Mermaid diagram on the right — the same split as `code-right`, applied to charts.
@@ -898,7 +849,6 @@ layout: chart-left
 title: 5-3. CHART LEFT — REQUEST LATENCY
 sectionNumber: 5-3
 ---
-
 ## 5-3. Chart Left
 
 The **chart-left** layout mirrors chart-right, placing the diagram on the left and explanatory text on the right.
@@ -927,7 +877,6 @@ layout: default
 title: 5-4. INLINE MERMAID
 sectionNumber: 5-4
 ---
-
 ## 5-4. Inline Mermaid
 
 You can embed Mermaid diagrams directly in any layout using a fenced code block with the `mermaid` language tag. No special component or slot required.
@@ -956,35 +905,33 @@ Inline Mermaid is the simplest option — just write the fenced block in the sli
 ---
 layout: dashboard
 title: 5-5. DASHBOARD LAYOUT
+hideInToc: true
 sectionNumber: 5-5
 panel1Label: 'API HEALTH'
 panel2Label: 'LATENCY P99'
 panel3Label: 'ERROR RATE'
 panel4Label: 'DEPLOY FREQUENCY'
+caption1: '30-DAY UPTIME'
+caption2: 'SLA: < 200ms ✓'
+caption3: '7-DAY AVERAGE'
+caption4: 'WEEKLY DEPLOYS'
 ---
-
-<template v-slot:panel1>
+::panel1::
 
 <div style="font-family: var(--font-mono); font-size: 3.2rem; font-weight: 900; color: var(--vp-green); text-align: center; padding: 1.2rem 0 0.4rem;">99.97%</div>
-<div style="font-family: var(--font-mono); font-size: 0.65rem; text-align: center; color: var(--color-fg-subtle); letter-spacing: 0.12em;">30-DAY UPTIME</div>
 
-</template>
 
-<template v-slot:panel2>
+::panel2::
 
 <div style="font-family: var(--font-mono); font-size: 3.2rem; font-weight: 900; color: var(--vp-yellow); text-align: center; padding: 1.2rem 0 0.4rem;">187ms</div>
-<div style="font-family: var(--font-mono); font-size: 0.65rem; text-align: center; color: var(--color-fg-subtle); letter-spacing: 0.12em;">SLA: &lt; 200ms ✓</div>
 
-</template>
 
-<template v-slot:panel3>
+::panel3::
 
 <div style="font-family: var(--font-mono); font-size: 3.2rem; font-weight: 900; color: var(--vp-red); text-align: center; padding: 1.2rem 0 0.4rem;">0.03%</div>
-<div style="font-family: var(--font-mono); font-size: 0.65rem; text-align: center; color: var(--color-fg-subtle); letter-spacing: 0.12em;">7-DAY AVERAGE</div>
 
-</template>
 
-<template v-slot:panel4>
+::panel4::
 
 ```mermaid
 xychart
@@ -993,100 +940,70 @@ xychart
   bar [2, 3, 1, 4, 2]
 ```
 
-</template>
 
 <!--
-The dashboard layout provides six independent panels in a 3×2 grid, each accepting any Markdown or component content. Use it for status overviews, KPI summaries, or any situation where multiple parallel data points need to be read simultaneously.
+The dashboard layout provides four independent panels in a 2×2 grid, each accepting any Markdown or component content. Use it for status overviews, KPI summaries, or any situation where multiple parallel data points need to be read simultaneously.
 -->
 
 ---
 layout: timeline
+hideInToc: true
 sectionNumber: 5-6
 direction: horizontal
+items:
+  - date: WEEK 1
+    title: Discovery
+    description: Stakeholder interviews, system audit, API contracts, data model.
+  - date: WEEK 2–3
+    title: Infrastructure
+    description: Kafka cluster, Flink scaffolding, ClickHouse schema, CI/CD pipeline.
+  - date: WEEK 4–6
+    title: Feature Dev
+    description: Stream processor, API endpoints, Grafana dashboards, alerts.
+  - date: WEEK 7
+    title: Load Testing
+    description: k6 tests to 10× volume. Tune Kafka partitions and Flink parallelism.
+  - date: WEEK 8
+    title: Staged Rollout
+    description: 10% → 50% → 100% migration. 30-minute rollback window.
 ---
-
-<div class="tl-entry">
-  <div class="tl-entry-marker"><div class="tl-entry-dot"></div></div>
-  <div class="tl-entry-body">
-    <div class="tl-entry-date vp-label">WEEK 1</div>
-    <div class="tl-entry-title">Discovery</div>
-    <div class="tl-entry-desc">Stakeholder interviews, system audit, API contracts, data model.</div>
-  </div>
-</div>
-
-<div class="tl-entry">
-  <div class="tl-entry-marker"><div class="tl-entry-dot"></div></div>
-  <div class="tl-entry-body">
-    <div class="tl-entry-date vp-label">WEEK 2–3</div>
-    <div class="tl-entry-title">Infrastructure</div>
-    <div class="tl-entry-desc">Kafka cluster, Flink scaffolding, ClickHouse schema, CI/CD pipeline.</div>
-  </div>
-</div>
-
-<div class="tl-entry">
-  <div class="tl-entry-marker"><div class="tl-entry-dot"></div></div>
-  <div class="tl-entry-body">
-    <div class="tl-entry-date vp-label">WEEK 4–6</div>
-    <div class="tl-entry-title">Feature Dev</div>
-    <div class="tl-entry-desc">Stream processor, API endpoints, Grafana dashboards, alerts.</div>
-  </div>
-</div>
-
-<div class="tl-entry">
-  <div class="tl-entry-marker"><div class="tl-entry-dot"></div></div>
-  <div class="tl-entry-body">
-    <div class="tl-entry-date vp-label">WEEK 7</div>
-    <div class="tl-entry-title">Load Testing</div>
-    <div class="tl-entry-desc">k6 tests to 10× volume. Tune Kafka partitions and Flink parallelism.</div>
-  </div>
-</div>
-
-<div class="tl-entry">
-  <div class="tl-entry-marker"><div class="tl-entry-dot"></div></div>
-  <div class="tl-entry-body">
-    <div class="tl-entry-date vp-label">WEEK 8</div>
-    <div class="tl-entry-title">Staged Rollout</div>
-    <div class="tl-entry-desc">10% → 50% → 100% migration. 30-minute rollback window.</div>
-  </div>
-</div>
-
 <!--
-The timeline layout presents a vertical chronological sequence. Each entry uses the `tl-entry-date` for the time label, `tl-entry-title` for the milestone name, and `tl-entry-body` for descriptive text. The `vp-label` utility class applies the monospaced label treatment to date strings.
+The timeline layout can render simple entries directly from frontmatter. For rich Markdown in an entry body, use the `:::timeline-entry{date="..." title="..."}` component sugar instead.
 -->
 
 ---
 layout: default
 title: ALL CALLOUT TYPES — REFERENCE
+hideInToc: true
 sectionNumber: A-1
 ---
-
 ## Appendix A — Callout Reference
 
 All four Callout types, side by side:
 
-<Callout type="warning">
+:::callout{type="warning"}
 
 **WARNING.** The most serious level — conditions that can cause real harm. Red accent.
 
-</Callout>
+:::
 
-<Callout type="caution">
+:::callout{type="caution"}
 
 **CAUTION.** Conditions requiring care; recoverable if caught early. Peach/amber accent.
 
-</Callout>
+:::
 
-<Callout type="note">
+:::callout{type="note"}
 
 **NOTE.** Supplementary information worth calling out explicitly. Blue accent.
 
-</Callout>
+:::
 
-<Callout type="important">
+:::callout{type="important"}
 
 **IMPORTANT.** Deserves attention but not alarming. Mauve accent.
 
-</Callout>
+:::
 
 See image layout slides for `FigureCaption` usage (renders below the image with figure number and label).
 
@@ -1097,9 +1014,9 @@ Appendix slides work identically to regular content slides. Use the `sectionNumb
 ---
 layout: default
 title: CSS UTILITY CLASSES — REFERENCE
+hideInToc: true
 sectionNumber: A-2
 ---
-
 ## Appendix B — CSS Utilities
 
 | Class | Description |
@@ -1120,23 +1037,18 @@ This reference slide documents the CSS utility classes available for use in slid
 
 ---
 layout: end
+hideInToc: true
 subtitle: VESPER THEME
 bannerText: VESPER — CATPPUCCIN · IBM PLEX SANS · FIRA CODE
 photo: https://github.com/lukemcguire.png
-contact: luke.mcguire@gmail.com
+endTitle: 'Thank You'
+contact: |
+  github.com/lukemcguire/slidev-theme-vesper
+  luke.mcguire@gmail.com
+  Built with Slidev · Palette by Catppuccin
 ---
 
-<template v-slot:title>Thank You</template>
 
-<template v-slot:contact>
-
-`github.com/lukemcguire/slidev-theme-vesper`
-
-`luke.mcguire@gmail.com`
-
-Built with [Slidev](https://sli.dev) · Palette by [Catppuccin](https://catppuccin.com)
-
-</template>
 
 <!--
 The end layout provides a formal closing slide with an optional presenter photo (cropped to a circle), contact information, and Banner labels at top and bottom for persistent deck identity. The photo is optional — omit the `photo` prop to remove it. The `bannerText` prop drives both Banner instances.

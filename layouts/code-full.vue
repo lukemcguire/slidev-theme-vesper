@@ -9,6 +9,7 @@ defineProps<{
   codeLang?: string
   sectionNumber?: string
   lineNumbers?: boolean
+  caption?: string
 }>()
 </script>
 
@@ -40,7 +41,8 @@ defineProps<{
         <!-- Caption/source bar -->
         <div class="cdf-code-footer">
           <slot name="caption">
-            <span v-if="codeTitle" class="cdf-footer-label">SOURCE: {{ codeTitle }}</span>
+            <span v-if="caption" class="cdf-footer-label">{{ caption }}</span>
+            <span v-else-if="codeTitle" class="cdf-footer-label">SOURCE: {{ codeTitle }}</span>
           </slot>
         </div>
 

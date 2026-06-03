@@ -1,13 +1,22 @@
 <!-- Layout: end — Final slide with closing treatment and optional contact block -->
 <script setup lang="ts">
+import { computed } from 'vue'
 import Banner from '../components/Banner.vue'
 
-defineProps<{
+const props = defineProps<{
   contact?: string
   photo?: string
   subtitle?: string
   bannerText?: string
+  endTitle?: string
 }>()
+
+const contactLines = computed(() =>
+  (props.contact ?? '')
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean)
+)
 </script>
 
 <template>
@@ -26,12 +35,12 @@ defineProps<{
           {{ subtitle }}
         </div>
         <h1 class="end-title">
-          <slot name="title">Thank You</slot>
+          <slot name="title">{{ endTitle ?? 'Thank You' }}</slot>
         </h1>
         <div class="end-rule-mid"></div>
         <div class="end-contact">
           <slot name="contact">
-            <p v-if="contact">{{ contact }}</p>
+            <p v-for="line in contactLines" :key="line">{{ line }}</p>
           </slot>
         </div>
       </div>

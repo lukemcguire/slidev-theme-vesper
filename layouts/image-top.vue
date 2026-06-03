@@ -3,12 +3,17 @@
 import VesperHeader from '../components/VesperHeader.vue'
 import VesperFooter from '../components/VesperFooter.vue'
 import FigureCaption from '../components/FigureCaption.vue'
+import VesperImage from '../components/VesperImage.vue'
 
 defineProps<{
   title?: string
   sectionNumber?: string
   figNumber?: string | number
   figLabel?: string
+  image?: string
+  imageMode?: 'auto' | 'img' | 'svg'
+  imageClass?: string
+  caption?: string
 }>()
 </script>
 
@@ -23,13 +28,22 @@ defineProps<{
     <!-- Top image band -->
     <div class="it-image-band">
       <div class="it-image-frame">
-        <slot name="image">
+        <VesperImage
+          v-if="image"
+          :src="image"
+          :mode="imageMode ?? 'auto'"
+          :image-class="imageClass"
+        />
+        <slot v-else name="image">
           <div class="it-placeholder">
             <span class="vp-label" style="color: var(--color-rule-light); letter-spacing: var(--tracking-widest);">IMAGE</span>
           </div>
         </slot>
       </div>
       <FigureCaption :number="figNumber ?? '1'" :label="figLabel ?? ''" />
+      <div v-if="$slots.caption || caption" class="it-caption">
+        <slot name="caption">{{ caption }}</slot>
+      </div>
     </div>
 
     <!-- Divider rule -->
@@ -66,11 +80,19 @@ defineProps<{
   overflow: hidden;
 }
 
-.it-image-frame :deep(img) {
+.it-image-frame :deep(img),
+.it-image-frame :deep(.svg-diagram) {
   width: 100%;
   height: 100%;
   object-fit: contain;
   display: block;
+}
+
+.it-caption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-fg-subtle);
+  margin-top: var(--space-1);
 }
 
 .it-placeholder {

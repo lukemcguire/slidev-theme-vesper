@@ -2,11 +2,19 @@
 <script setup lang="ts">
 import VesperHeader from '../components/VesperHeader.vue'
 import VesperFooter from '../components/VesperFooter.vue'
+import TimelineEntry from '../components/TimelineEntry.vue'
+
+type TimelineItem = {
+  date?: string
+  title?: string
+  description?: string
+}
 
 defineProps<{
   title?: string
   sectionNumber?: string
   direction?: 'horizontal' | 'vertical'
+  items?: TimelineItem[]
 }>()
 </script>
 
@@ -26,17 +34,13 @@ defineProps<{
 
       <div :class="['tl-track', direction === 'vertical' ? 'tl-track--vertical' : 'tl-track--horizontal']">
         <slot>
-          <!-- Default placeholder entries — replace with ::TLEntry components or divs -->
-          <div class="tl-entry">
-            <div class="tl-entry-marker">
-              <div class="tl-entry-dot"></div>
-            </div>
-            <div class="tl-entry-body">
-              <div class="tl-entry-date vp-label">T+0</div>
-              <div class="tl-entry-title">Entry One</div>
-              <div class="tl-entry-desc">Description goes here</div>
-            </div>
-          </div>
+          <TimelineEntry
+            v-for="item in items ?? [{ date: 'T+0', title: 'Entry One', description: 'Description goes here' }]"
+            :key="`${item.date ?? ''}-${item.title ?? ''}`"
+            :date="item.date"
+            :title="item.title"
+            :description="item.description"
+          />
         </slot>
       </div>
     </div>

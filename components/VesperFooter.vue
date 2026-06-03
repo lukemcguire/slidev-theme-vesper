@@ -34,9 +34,9 @@ defineProps<{
 }
 
 .vp-footer__inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   padding: var(--space-2) var(--space-6);
   background: var(--color-bg-alt);
   gap: var(--space-4);
@@ -45,18 +45,18 @@ defineProps<{
 .vp-footer__section {
   color: var(--color-accent);
   font-weight: 600;
-  flex-shrink: 0;
+  justify-self: start;
 }
 
 .vp-footer__date {
   color: var(--color-fg-subtle);
   letter-spacing: 0.10em;
   text-align: center;
-  flex: 1;
+  justify-self: center;
 }
 
 .vp-footer__page {
   color: var(--color-fg-muted);
-  flex-shrink: 0;
+  justify-self: end;
 }
 </style>

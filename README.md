@@ -44,7 +44,7 @@ date: 'MONTH YEAR'                  # → VesperFooter center
 ```
 
 The theme sets these defaults automatically — no need to repeat them:
-`highlighter: shiki`, `lineNumbers: true`, `canvasWidth: 960`.
+`highlighter: shiki`, `lineNumbers: true`, `canvasWidth: 960`, `comark: true`.
 
 Per-slide overrides:
 
@@ -63,13 +63,13 @@ sectionNumber: 1-1        # → VesperFooter left slot
 | Layout | Description |
 |---|---|
 | `cover` | Title slide with corner brackets and optional Banner labels |
-| `table-of-contents` | Dot-leader ToC with chapter and section entries |
+| `table-of-contents` | Auto-generated dot-leader ToC from slide titles |
 | `section` | Chapter/section divider — large display title + descriptor |
 | `default` | Primary content layout: prose, lists, tables |
 | `statement` | Single centered text, no chrome |
 | `quote` | Attributed quotation with name/title/affiliation |
-| `two-column` | Equal-width columns with center rule |
-| `three-column` | Three equal columns with labeled headers |
+| `two-column` / `two-col` | Equal-width columns with center rule |
+| `three-column` / `three-col` | Three equal columns with labeled headers |
 | `callout` | Content area + prominent alert box at the bottom |
 | `comparison` | Two labeled panels with accent-color borders |
 | `image-right` | Text left, image panel right (with figure caption) |
@@ -83,11 +83,51 @@ sectionNumber: 1-1        # → VesperFooter left slot
 | `chart-right` | Prose left, Mermaid diagram right |
 | `chart-left` | Mermaid diagram left, prose right |
 | `chart-full` | Full-area Mermaid diagram with title bar |
-| `dashboard` | Six-panel grid (3×2) for status overviews and KPIs |
+| `dashboard` | Four-panel grid (2×2) for status overviews and KPIs |
 | `timeline` | Vertical chronological sequence |
 | `end` | Closing slide with optional presenter photo and contact block |
 
 ---
+
+## Syntax sugar
+
+Vesper enables Comark/MDC syntax by default. Prefer triple-colon lowercase component blocks:
+
+```md
+:::block{type="info" title="API AUTHENTICATION"}
+All requests require a bearer token.
+:::
+
+:::callout{type="warning"}
+**WARNING.** This action cannot be undone.
+:::
+```
+
+Use `layout: table-of-contents` for an automatic ToC. It reads slide titles, honors `hideInToc: true`, and supports `columns: 1 | 2 | 3`.
+
+Use Slidev slot markers for layout regions:
+
+```md
+---
+layout: two-column
+---
+
+Left content
+
+::right::
+
+Right content
+```
+
+Use `image:` frontmatter for image layouts. SVGs render inline by default; set `imageMode: img` to force plain `<img>` rendering.
+
+```yaml
+---
+layout: image-right
+image: ./assets/diagram.svg
+imageMode: auto # auto | svg | img
+---
+```
 
 ## Components
 
@@ -95,18 +135,30 @@ sectionNumber: 1-1        # → VesperFooter left slot
 
 Titled content panel with solid accent header bar and corner brackets.
 
-```vue
-<Block type="info" title="API AUTHENTICATION">
-
+```md
+:::block{type="info" title="API AUTHENTICATION"}
 All requests require a bearer token. Tokens expire after 24 hours.
-
-</Block>
+:::
 ```
 
 **Props:**
 - `type`: `'default'` (mauve) | `'info'` (blue) | `'success'` (green) | `'warning'` (yellow) | `'danger'` (red) | `'example'` (teal)
 - `title`: string (optional — omit for left-border-only titleless variant)
 - `compact`: boolean (reduces body padding)
+
+### `Columns`
+
+Inline two- or three-column region. Separate columns with a standalone `+++` line.
+
+```md
+:::columns
+Left column content
+
++++
+
+Right column content
+:::
+```
 
 ### `SvgDiagram`
 
@@ -127,12 +179,10 @@ hardcoded hex values. See `assets/fig_1-1.svg` for a reference example.
 
 Inline advisory notice with left-border accent and tinted background.
 
-```vue
-<Callout type="warning">
-
+```md
+:::callout{type="warning"}
 **WARNING.** This action cannot be undone.
-
-</Callout>
+:::
 ```
 
 > **Note:** Slot content must be surrounded by blank lines for Slidev to
@@ -170,6 +220,28 @@ export const config = loadConfig()
 ```
 
 **Props:** `title`, `lang`, `caption`
+
+### `TimelineEntry`
+
+Used by the `timeline` layout when you need rich Markdown entries instead of simple frontmatter `items`.
+
+```md
+:::timeline-entry{date="WEEK 1" title="Discovery"}
+Stakeholder interviews, system audit, API contracts, data model.
+:::
+```
+
+Simple timelines can be defined entirely in frontmatter:
+
+```yaml
+---
+layout: timeline
+items:
+  - date: WEEK 1
+    title: Discovery
+    description: Stakeholder interviews and system audit.
+---
+```
 
 ### `FigureCaption`
 
