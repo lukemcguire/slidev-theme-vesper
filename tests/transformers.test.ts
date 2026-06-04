@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  expandSingleLineMdcBlocks,
   normalizeBooleanMdcProps,
   transformColumnsSugar,
   transformVesperMarkdown,
@@ -50,6 +51,37 @@ describe('normalizeBooleanMdcProps', () => {
     ].join('\n')
 
     expect(transformVesperMarkdown(input)).toContain(':::block{type="info" title="NOTE" :compact="true"}')
+  })
+})
+
+describe('expandSingleLineMdcBlocks', () => {
+  it('expands same-line triple-colon component blocks before MDC parsing', () => {
+    expect(expandSingleLineMdcBlocks(
+      ':::block{type="warning" title="BLOCKER" compact=true} Both RFQs are stalled. :::',
+    )).toBe([
+      ':::block{type="warning" title="BLOCKER" compact=true}',
+      'Both RFQs are stalled.',
+      ':::',
+    ].join('\n'))
+  })
+
+  it('composes with boolean prop normalization for same-line blocks', () => {
+    expect(transformVesperMarkdown(
+      ':::block{type="warning" title="BLOCKER" compact=true} Both RFQs are stalled. :::',
+    )).toBe([
+      ':::block{type="warning" title="BLOCKER" :compact="true"}',
+      'Both RFQs are stalled.',
+      ':::',
+    ].join('\n'))
+  })
+
+  it('does not expand examples inside fenced code blocks', () => {
+    const input = [
+      '```md',
+      ':::block{compact=true} Text :::',
+      '```',
+    ].join('\n')
+    expect(expandSingleLineMdcBlocks(input)).toBe(input)
   })
 })
 

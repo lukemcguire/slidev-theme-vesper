@@ -139,6 +139,58 @@ export function normalizeBooleanMdcProps(code: string) {
   }).join('\n')
 }
 
+function splitSingleLineMdcBlock(line: string) {
+  const start = line.match(/^(\s*:{2,}[A-Za-z][\w$.-]*(?:\[[^\]]*\])?)(.*)$/)
+  if (!start) return
+
+  const marker = start[1].match(/^\s*(:+)/)?.[1]
+  if (!marker) return
+
+  let opener = start[1]
+  let rest = start[2]
+
+  const props = splitMdcOpeningLine(line)
+  if (props) {
+    opener = `${props.before}${props.props}}`
+    rest = props.after.slice(1)
+  }
+
+  if (!/^\s+/.test(rest)) return
+
+  const contentAndClose = rest.trim().match(/^(.*?)\s+(:{2,})\s*$/)
+  if (!contentAndClose || contentAndClose[2] !== marker) return
+
+  const content = contentAndClose[1].trim()
+  if (!content) return
+
+  return { opener, content, close: marker }
+}
+
+export function expandSingleLineMdcBlocks(code: string) {
+  const lines = code.split('\n')
+  const out: string[] = []
+  let fence: string | undefined
+
+  for (const line of lines) {
+    const nextFence = updateFence(line, fence)
+    if (fence || nextFence) {
+      out.push(line)
+      fence = nextFence
+      continue
+    }
+
+    const block = splitSingleLineMdcBlock(line)
+    if (!block) {
+      out.push(line)
+      continue
+    }
+
+    out.push(block.opener, block.content, block.close)
+  }
+
+  return out.join('\n')
+}
+
 function findColumnsClose(lines: string[], start: number) {
   let fence: string | undefined
   let depth = 0
@@ -244,7 +296,7 @@ export function transformColumnsSugar(code: string) {
 }
 
 export function transformVesperMarkdown(code: string) {
-  return transformColumnsSugar(normalizeBooleanMdcProps(code))
+  return transformColumnsSugar(normalizeBooleanMdcProps(expandSingleLineMdcBlocks(code)))
 }
 
 export default function () {
