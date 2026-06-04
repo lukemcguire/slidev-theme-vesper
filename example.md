@@ -115,7 +115,7 @@ All palette values live as **`--vp-*` CSS custom properties** (Catppuccin Latte 
 | `--vp-mantle` | Deep background | `--vp-teal` · `--vp-green` | Success / positive |
 | `--vp-overlay0` | Subtle stroke | `--vp-red` · `--vp-yellow` | Error / warning |
 
-**SVG diagrams** — use `var(--vp-*)` in `fill`/`stroke` attributes and set `image: ./path/to/diagram.svg` in image layout frontmatter. SVGs render inline by default so CSS vars resolve and they respond to dark/light mode. Use `imageMode: img` when an SVG should render as a plain image.
+**SVG diagrams** — use `var(--vp-*)` in `fill`/`stroke` attributes and set `image: ./path/to/diagram.svg` in image layout frontmatter. Trusted local SVGs render inline by default so CSS vars resolve and they respond to dark/light mode. Remote, protocol-relative, and `data:` SVGs render as plain images. Use `imageMode: img` when an SVG should render as a plain image.
 
 ---
 layout: section

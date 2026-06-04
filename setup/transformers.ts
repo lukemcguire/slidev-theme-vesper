@@ -27,6 +27,118 @@ function isColumnSeparator(line: string) {
   return /^\+\+\+\s*$/.test(line.trim())
 }
 
+function splitMdcOpeningLine(line: string) {
+  const start = line.match(/^(\s*:{1,}[A-Za-z][\w$.-]*(?:\[[^\]]*\])?\s*)\{/)
+  if (!start) return
+
+  let quote: string | undefined
+  let depth = 0
+  for (let i = start[0].length - 1; i < line.length; i++) {
+    const char = line[i]
+    if (quote) {
+      if (char === '\\') i++
+      else if (char === quote) quote = undefined
+      continue
+    }
+    if (char === '"' || char === "'" || char === '`') {
+      quote = char
+      continue
+    }
+    if (char === '{' || char === '[' || char === '(') {
+      depth++
+      continue
+    }
+    if (char === '}' || char === ']' || char === ')') {
+      depth--
+      if (depth === 0 && char === '}') {
+        return {
+          before: line.slice(0, start[0].length),
+          props: line.slice(start[0].length, i),
+          after: line.slice(i),
+        }
+      }
+    }
+  }
+}
+
+function normalizeBareBooleanProps(props: string) {
+  let out = ''
+  let i = 0
+  let quote: string | undefined
+  let depth = 0
+
+  while (i < props.length) {
+    const char = props[i]
+
+    if (quote) {
+      out += char
+      if (char === '\\') {
+        out += props[i + 1] ?? ''
+        i += 2
+        continue
+      }
+      if (char === quote) quote = undefined
+      i++
+      continue
+    }
+
+    if (char === '"' || char === "'" || char === '`') {
+      quote = char
+      out += char
+      i++
+      continue
+    }
+
+    if (char === '{' || char === '[' || char === '(') {
+      depth++
+      out += char
+      i++
+      continue
+    }
+
+    if (char === '}' || char === ']' || char === ')') {
+      depth = Math.max(0, depth - 1)
+      out += char
+      i++
+      continue
+    }
+
+    if (depth === 0 && (i === 0 || /\s/.test(props[i - 1] ?? '')) && char !== ':' && char !== '@') {
+      const match = props.slice(i).match(/^([A-Za-z_$][\w$.-]*)=(true|false)(?=\s|$)/)
+      if (match) {
+        out += `:${match[1]}="${match[2]}"`
+        i += match[0].length
+        continue
+      }
+    }
+
+    out += char
+    i++
+  }
+
+  return out
+}
+
+export function normalizeBooleanMdcProps(code: string) {
+  const lines = code.split('\n')
+  let fence: string | undefined
+
+  return lines.map((line) => {
+    const nextFence = updateFence(line, fence)
+    if (fence || nextFence) {
+      fence = nextFence
+      return line
+    }
+
+    const parts = splitMdcOpeningLine(line)
+    if (!parts) return line
+
+    const props = normalizeBareBooleanProps(parts.props)
+
+    return `${parts.before}${props}${parts.after}`
+  }).join('\n')
+}
+
 function findColumnsClose(lines: string[], start: number) {
   let fence: string | undefined
   let depth = 0
@@ -99,7 +211,7 @@ function renderColumns(columns: string[][]) {
   return rendered
 }
 
-function transformColumnsSugar(code: string) {
+export function transformColumnsSugar(code: string) {
   const lines = code.split('\n')
   const out: string[] = []
 
@@ -131,12 +243,16 @@ function transformColumnsSugar(code: string) {
   return out.join('\n')
 }
 
+export function transformVesperMarkdown(code: string) {
+  return transformColumnsSugar(normalizeBooleanMdcProps(code))
+}
+
 export default function () {
   return {
     pre: [
       (ctx: any) => {
         const original = ctx.s.original
-        const transformed = transformColumnsSugar(original)
+        const transformed = transformVesperMarkdown(original)
         if (transformed !== original)
           ctx.s.overwrite(0, original.length, transformed)
       },

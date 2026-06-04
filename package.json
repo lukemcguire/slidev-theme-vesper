@@ -11,14 +11,28 @@
   ],
   "homepage": "https://github.com/luke-mcguire/slidev-theme-vesper",
   "author": "luke.mcguire@gmail.com",
+  "scripts": {
+    "dev": "slidev example.md",
+    "build": "slidev build example.md",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
   "files": [
     "layouts/",
     "components/",
     "styles/",
     "setup/",
+    "assets/",
+    "example.md",
     "vite.config.ts",
     "README.md"
   ],
+  "devDependencies": {
+    "@slidev/cli": "52.15.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.14",
+    "vue": "^3.5.24"
+  },
   "slidev": {
     "highlighter": "shiki",
     "defaults": {

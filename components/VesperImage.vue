@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import SvgDiagram from './SvgDiagram.vue'
+import { isRemoteOrDataUrl, isSvgPath } from './svgSafety'
 
 const props = defineProps<{
   src?: string
@@ -17,17 +18,17 @@ const assetUrls = import.meta.glob('/assets/**/*.{apng,avif,gif,jpeg,jpg,png,svg
 
 const resolvedSrc = computed(() => {
   const src = props.src
-  if (!src || /^(?:https?:|data:)/.test(src)) return src
+  if (!src || isRemoteOrDataUrl(src)) return src
 
   const normalized = src.startsWith('/') ? src : src.startsWith('./') ? src.slice(1) : `/${src}`
   return assetUrls[normalized] ?? src
 })
 
 const renderAsSvg = computed(() => {
-  if (!props.src) return false
+  const src = props.src
+  if (!src || props.mode === 'img' || isRemoteOrDataUrl(src)) return false
   if (props.mode === 'svg') return true
-  if (props.mode === 'img') return false
-  return props.src.split(/[?#]/, 1)[0]?.toLowerCase().endsWith('.svg') ?? false
+  return isSvgPath(src)
 })
 </script>
 

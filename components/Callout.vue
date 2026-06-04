@@ -34,7 +34,9 @@ const typeConfig = computed(() => {
 
 <style scoped>
 .vp-callout-box {
-  border: 2px dashed var(--color-rule);
+  --callout-accent: var(--color-rule);
+  border: 2px dashed var(--callout-accent);
+  background: color-mix(in srgb, var(--callout-accent) 10%, transparent);
   padding: 0;
   position: relative;
   overflow: hidden;
@@ -43,37 +45,15 @@ const typeConfig = computed(() => {
   flex-direction: column;
 }
 
-
 .vp-callout-box:last-child {
   margin-bottom: 0;
 }
 
 /* Type variants */
-.callout--warning {
-  border-color: var(--vp-red);
-  background: rgba(242, 139, 168, 0.10);
-}
-
-.callout--note {
-  border-color: var(--vp-blue);
-  background: rgba(137, 180, 250, 0.10);
-}
-
-.callout--caution {
-  border-color: var(--vp-peach);
-  background: rgba(250, 179, 135, 0.10);
-}
-
-.callout--important {
-  border-color: var(--vp-mauve);
-  background: rgba(203, 166, 247, 0.10);
-}
-
-/* Dark mode: Latte palette uses different values for the same vars */
-:global(.dark) .callout--warning  { background: rgba(243, 139, 168, 0.12); }
-:global(.dark) .callout--note     { background: rgba(137, 180, 250, 0.12); }
-:global(.dark) .callout--caution  { background: rgba(250, 179, 135, 0.12); }
-:global(.dark) .callout--important { background: rgba(203, 166, 247, 0.12); }
+.callout--warning   { --callout-accent: var(--vp-red); }
+.callout--note      { --callout-accent: var(--vp-blue); }
+.callout--caution   { --callout-accent: var(--vp-peach); }
+.callout--important { --callout-accent: var(--vp-mauve); }
 
 /* Header bar */
 .callout-header {
@@ -81,34 +61,22 @@ const typeConfig = computed(() => {
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4) var(--space-1);
-  border-bottom: 1px dashed currentColor;
+  border-bottom: 1px dashed var(--callout-accent);
+  background: color-mix(in srgb, var(--callout-accent) 15%, transparent);
 }
-
-.callout--warning  .callout-header  { background: rgba(242, 139, 168, 0.15); border-bottom-color: var(--vp-red); }
-.callout--note     .callout-header  { background: rgba(137, 180, 250, 0.15); border-bottom-color: var(--vp-blue); }
-.callout--caution  .callout-header  { background: rgba(250, 179, 135, 0.15); border-bottom-color: var(--vp-peach); }
-.callout--important .callout-header { background: rgba(203, 166, 247, 0.15); border-bottom-color: var(--vp-mauve); }
 
 .callout-icon {
   font-size: var(--text-md);
   flex-shrink: 0;
   line-height: 1;
+  color: var(--callout-accent);
 }
-
-.callout--warning  .callout-icon  { color: var(--vp-red); }
-.callout--note     .callout-icon  { color: var(--vp-blue); }
-.callout--caution  .callout-icon  { color: var(--vp-peach); }
-.callout--important .callout-icon { color: var(--vp-mauve); }
 
 .callout-label {
   font-weight: 600;
   letter-spacing: 0.12em;
+  color: var(--callout-accent);
 }
-
-.callout--warning  .callout-label  { color: var(--vp-red); }
-.callout--note     .callout-label  { color: var(--vp-blue); }
-.callout--caution  .callout-label  { color: var(--vp-peach); }
-.callout--important .callout-label { color: var(--vp-mauve); }
 
 /* Content */
 .callout-body {

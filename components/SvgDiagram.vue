@@ -1,14 +1,26 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
+import { hasUnsafeSvgContent, isRemoteOrDataUrl, isSvgPath, looksLikeSvg } from './svgSafety'
 
 const props = defineProps<{ src: string }>()
 const svgContent = ref('')
 
 async function load(src: string) {
-  if (!src) return
+  svgContent.value = ''
+  if (!src || isRemoteOrDataUrl(src)) return
+
   try {
     const res = await fetch(src)
-    svgContent.value = await res.text()
+    if (!res.ok) return
+
+    const contentType = res.headers.get('content-type') ?? ''
+    const text = await res.text()
+    const pathLooksSvg = isSvgPath(src)
+
+    if (!pathLooksSvg && contentType && !contentType.includes('image/svg+xml')) return
+    if (!looksLikeSvg(text) || hasUnsafeSvgContent(text)) return
+
+    svgContent.value = text
   } catch {
     svgContent.value = ''
   }

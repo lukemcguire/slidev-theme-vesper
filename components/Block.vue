@@ -134,7 +134,7 @@ defineProps<{
   color: var(--vp-base);
   opacity: 0.75;
   padding: 1px 4px;
-  border: 1px solid rgba(var(--vp-base), 0.3);
+  border: 1px solid color-mix(in srgb, var(--vp-base) 30%, transparent);
 }
 
 /* ── Body ─────────────────────────────────────────────────────────────────── */

@@ -32,6 +32,19 @@ theme: ./path/to/slidev-theme-vesper
 
 ---
 
+## Development
+
+The theme has no production build step of its own — Slidev loads the theme files directly — but local scripts are provided for reproducible checks:
+
+```bash
+npm install
+npm run dev                    # slidev example.md
+npm test                       # transformer fixture tests
+npm run build                  # slidev build example.md
+```
+
+---
+
 ## Front Matter
 
 ```yaml
@@ -91,10 +104,10 @@ sectionNumber: 1-1        # → VesperFooter left slot
 
 ## Syntax sugar
 
-Vesper enables Comark/MDC syntax by default. Prefer triple-colon lowercase component blocks:
+Vesper enables Comark/MDC syntax by default. Prefer triple-colon lowercase component blocks. Bare boolean props such as `compact=true` and `compact=false` are normalized to Vue boolean bindings by the theme transformer.
 
 ```md
-:::block{type="info" title="API AUTHENTICATION"}
+:::block{type="info" title="API AUTHENTICATION" compact=true}
 All requests require a bearer token.
 :::
 
@@ -119,7 +132,7 @@ Left content
 Right content
 ```
 
-Use `image:` frontmatter for image layouts. SVGs render inline by default; set `imageMode: img` to force plain `<img>` rendering.
+Use `image:` frontmatter for image layouts. Local SVG assets render inline by default so CSS custom properties can resolve inside the SVG. Remote `http(s):`, protocol-relative, and `data:` SVGs render as plain `<img>` by default for safety; set `imageMode: img` to force plain `<img>` rendering for any image. `imageMode: svg` is a local-only inline SVG opt-in for non-`.svg` paths that return SVG content.
 
 ```yaml
 ---
@@ -162,9 +175,9 @@ Right column content
 
 ### `SvgDiagram`
 
-Fetches an SVG file and renders it inline so CSS custom properties
+Fetches a local SVG file and renders it inline so CSS custom properties
 (`var(--vp-*)`) resolve inside the SVG. Use this instead of `<img>` for
-diagrams that should adapt to dark/light mode.
+trusted local diagrams that should adapt to dark/light mode. Remote, protocol-relative, and `data:` SVG sources should be rendered as plain images rather than inline SVG.
 
 ```vue
 <SvgDiagram src="/assets/my-diagram.svg" />
